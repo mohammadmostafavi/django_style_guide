@@ -38,7 +38,7 @@ class BaseUserManager(BUM):
         return user
 
 
-class User(BaseModel, AbstractBaseUser, PermissionsMixin):
+class User(BaseModel, AbstractUser, PermissionsMixin):
 
     objects = BaseUserManager()
 
