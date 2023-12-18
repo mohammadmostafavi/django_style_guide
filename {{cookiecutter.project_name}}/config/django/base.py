@@ -119,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 {%- if cookiecutter.use_jwt == "y" %}
-AUTH_USER_MODEL = 'users.BaseUser'
+AUTH_USER_MODEL = 'users.User'
 {%- endif %}
 
 # Internationalization
