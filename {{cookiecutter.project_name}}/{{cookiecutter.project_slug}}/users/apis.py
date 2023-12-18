@@ -5,9 +5,9 @@ from rest_framework import serializers
 
 from django.core.validators import MinLengthValidator
 from .validators import number_validator, special_char_validator, letter_validator
-from {{cookiecutter.project_slug}}.users.models import BaseUser , Profile
+from {{cookiecutter.project_slug}}.users.models import User
 from {{cookiecutter.project_slug}}.api.mixins import ApiAuthMixin
-from {{cookiecutter.project_slug}}.users.services import register,get_profile 
+from {{cookiecutter.project_slug}}.users.services import register
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 
 from drf_spectacular.utils import extend_schema
@@ -17,13 +17,12 @@ class ProfileApi(ApiAuthMixin, APIView):
 
     class OutPutSerializer(serializers.ModelSerializer):
         class Meta:
-            model = Profile 
-            fields = ("bio", "posts_count", "subscriber_count", "subscription_count")
+            model = User
+            fields = ("username", "email", "created_at", "updated_at")
 
     @extend_schema(responses=OutPutSerializer)
     def get(self, request):
-        query = get_profile(user=request.user)
-        return Response(self.OutPutSerializer(query, context={"request":request}).data)
+        return Response(self.OutPutSerializer(request.user, context={"request":request}).data)
 
 
 class RegisterApi(APIView):
@@ -31,7 +30,7 @@ class RegisterApi(APIView):
 
     class InputRegisterSerializer(serializers.Serializer):
         email = serializers.EmailField(max_length=255)
-        bio = serializers.CharField(max_length=1000, required=False)
+        username = serializers.CharField(max_length=255)
         password = serializers.CharField(
                 validators=[
                         number_validator,
@@ -61,7 +60,7 @@ class RegisterApi(APIView):
         token = serializers.SerializerMethodField("get_token")
 
         class Meta:
-            model = BaseUser 
+            model = User 
             fields = ("email", "token", "created_at", "updated_at")
 
         def get_token(self, user):
