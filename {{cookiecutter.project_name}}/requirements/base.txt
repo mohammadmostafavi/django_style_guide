@@ -4,8 +4,8 @@ psycopg2-binary==2.9.5
 djangorestframework==3.14
 
 celery==5.2.7
-django-celery-results==2.5.1
-django-celery-beat==2.5.0
+django-celery-results
+django-celery-beat
 
 whitenoise==6.2.0
 
