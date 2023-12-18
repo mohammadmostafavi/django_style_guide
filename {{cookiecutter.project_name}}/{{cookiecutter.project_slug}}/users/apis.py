@@ -7,8 +7,7 @@ from django.core.validators import MinLengthValidator
 from .validators import number_validator, special_char_validator, letter_validator
 from {{cookiecutter.project_slug}}.users.models import BaseUser , Profile
 from {{cookiecutter.project_slug}}.api.mixins import ApiAuthMixin
-from {{cookiecutter.project_slug}}.users.selectors import get_profile
-from {{cookiecutter.project_slug}}.users.services import register 
+from {{cookiecutter.project_slug}}.users.services import register,get_profile 
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 
 from drf_spectacular.utils import extend_schema
